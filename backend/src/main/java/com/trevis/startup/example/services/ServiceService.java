@@ -1,5 +1,5 @@
 package com.trevis.startup.example.services;
 
-public class ServiceService {
-    
+public interface ServiceService {
+       
 }
