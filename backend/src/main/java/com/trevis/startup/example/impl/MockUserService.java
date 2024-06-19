@@ -28,15 +28,23 @@ public class MockUserService implements UserService{
     }
 
     @Override
-    public String updatePassword(Long id, String newPassword) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePassword'");
+    public void updatePassword(Long id, String newPassword) {
+       for (User user : users) {
+            if(user.getId() == id){
+                user.setPassword(newPassword);
+            }
+        }
     }
 
     @Override
-    public String get(String username) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
+    public User get(String username) {
+        for (User user : users) {
+            if(user.getUsername() == username){
+                return user;
+            }
+        }
+        
+        return null;
     }
     
 }
