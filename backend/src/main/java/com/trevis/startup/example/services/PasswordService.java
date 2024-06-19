@@ -1,5 +1,6 @@
 package com.trevis.startup.example.services;
 
-public class PasswordService {
+public interface PasswordService {
+    String applyCryptography(String password);
     
 }

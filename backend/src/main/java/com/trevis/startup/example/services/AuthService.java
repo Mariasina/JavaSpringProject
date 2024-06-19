@@ -1,5 +1,5 @@
 package com.trevis.startup.example.services;
 
-public class AuthService {
-    
+public interface AuthService {
+    void login(String username, String password);
 }
