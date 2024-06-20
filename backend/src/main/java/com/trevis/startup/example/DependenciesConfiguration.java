@@ -6,11 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-import com.trevis.startup.example.impl.DatabaseHelloService;
-import com.trevis.startup.example.impl.MockHelloService;
-import com.trevis.startup.example.impl.MockUserService;
-import com.trevis.startup.example.services.HelloService;
-import com.trevis.startup.example.services.UserService;
+import com.trevis.startup.example.impl.*;
+import com.trevis.startup.example.services.*;
 
 @Configuration
 public class DependenciesConfiguration {
@@ -27,6 +24,18 @@ public class DependenciesConfiguration {
     @Scope
     public UserService userService() {
         return new MockUserService();
+    }
+
+    @Bean
+    @Scope
+    public DepartmentService departmentService() {
+        return new MockDepartmentService();
+    }
+
+    @Bean
+    @Scope
+    public ServiceService serviceService() {
+        return new MockServiceService();
     }
 
 }

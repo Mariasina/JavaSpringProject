@@ -5,15 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.trevis.startup.example.services.DepartmentService;
+
+import com.trevis.startup.example.services.ServiceService;
 
 @SpringBootTest
-public class DepartmentTest {
+public class ServiceTest {
     @Autowired
-    DepartmentService departmentService;
+    ServiceService serviceService;
 
     @Test
-    void departmentGetAllTest() {
-        assertNotNull(departmentService.getAll());
+    void serviceGetTest() {
+        assertNotNull(serviceService.get("ba", 1, 10));
     }
 }
