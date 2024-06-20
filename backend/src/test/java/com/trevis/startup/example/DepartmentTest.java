@@ -15,12 +15,14 @@ public class DepartmentTest {
 
     @Test
     void departmentGetAllTest() {
+        //create department and verify that getAll doesn't return null
         departmentService.create(1l, "RH");
         assertNotNull(departmentService.getAll());
     }
 
     @Test
     void departmentGetAllFailedTest() {
+        //calls getAll without creating any departments, excpecting null
         assertNull(departmentService.getAll());
     }
 }

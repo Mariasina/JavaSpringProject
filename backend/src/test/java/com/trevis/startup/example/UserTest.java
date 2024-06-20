@@ -21,13 +21,17 @@ public class UserTest {
 
     @Test
     void userAndAuthTest() {
+        //testing create user
         userService.create(1l, "mari", "12345b", 0, new Department());
+        //testing get user
         var user = userService.get("mari");
         assertNotNull(user);
 
+        //testing update password
         userService.updatePassword(1l, "12345a");
         assertEquals(user.getPassword(), "12345a");
 
-        // assertNotNull(authService.login("mari", "12345a"));
+        //testing user authentification
+        assertNotNull(authService.login("mari", "12345a"));
     }
 }

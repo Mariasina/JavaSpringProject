@@ -16,6 +16,7 @@ public class MockUserService implements UserService{
 
     @Override
     public void create(Long id, String username, String password, Integer type, Department department) {
+        //creates a user with the parameters sent and adds it to the mock list
         var user = new User();
 
         user = new User();
@@ -29,6 +30,7 @@ public class MockUserService implements UserService{
 
     @Override
     public void updatePassword(Long id, String newPassword) {
+        //finds the serched user, then sets their password as newPassword
        for (User user : users) {
             if(user.getId() == id){
                 user.setPassword(newPassword);
@@ -38,6 +40,7 @@ public class MockUserService implements UserService{
 
     @Override
     public User get(String username) {
+        //finds the serched user and returns it
         for (User user : users) {
             if(user.getUsername() == username){
                 return user;

@@ -17,12 +17,14 @@ public class ServiceTest {
 
     @Test
     void serviceTest() {
+        //testing create and get service if query is found in list
         serviceService.create(1l, "sites", "bla bla bla", false, new User());
         assertNotNull(serviceService.get("si", 1, 10));
     }
 
     @Test
     void serviceTestFalse() {
+        //testing create and get service if query is not found in list
         serviceService.create(1l, "sites", "bla bla bla", false, new User());
         assertNull(serviceService.get("ba", 1, 10));
     }
