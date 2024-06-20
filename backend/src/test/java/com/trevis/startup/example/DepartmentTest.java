@@ -1,6 +1,7 @@
 package com.trevis.startup.example;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,10 @@ public class DepartmentTest {
     void departmentGetAllTest() {
         departmentService.create(1l, "RH");
         assertNotNull(departmentService.getAll());
+    }
+
+    @Test
+    void departmentGetAllFailedTest() {
+        assertNull(departmentService.getAll());
     }
 }
