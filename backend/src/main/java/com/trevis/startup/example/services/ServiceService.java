@@ -2,7 +2,6 @@ package com.trevis.startup.example.services;
 
 import java.util.List;
 
-import com.trevis.startup.example.model.Department;
 import com.trevis.startup.example.model.Service;
 import com.trevis.startup.example.model.User;
 

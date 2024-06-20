@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.trevis.startup.example.services.PasswordService;
-import com.trevis.startup.example.services.ServiceService;
 
 @SpringBootTest
 public class PasswordTest {
