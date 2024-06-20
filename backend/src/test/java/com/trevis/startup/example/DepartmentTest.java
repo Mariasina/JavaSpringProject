@@ -14,6 +14,7 @@ public class DepartmentTest {
 
     @Test
     void departmentGetAllTest() {
+        departmentService.create(1l, "RH");
         assertNotNull(departmentService.getAll());
     }
 }

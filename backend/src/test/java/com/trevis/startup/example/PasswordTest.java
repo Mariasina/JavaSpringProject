@@ -1,6 +1,7 @@
 package com.trevis.startup.example;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class PasswordTest {
     void CryptographyTest() {
         var passwordEncrypted = passwordService.applyCryptography("12345a");
         assertNotNull(passwordEncrypted);
-        passwordService.verifyCryptography("12345a", passwordEncrypted);
+        assertTrue(passwordService.verifyCryptography("12345a", passwordEncrypted));
     }
 
    

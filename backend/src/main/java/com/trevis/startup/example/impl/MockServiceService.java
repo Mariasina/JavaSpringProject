@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.trevis.startup.example.model.Service;
+import com.trevis.startup.example.model.User;
 import com.trevis.startup.example.services.ServiceService;
 
 public class MockServiceService implements ServiceService {
     private List<Service> services =  new ArrayList<>();
-
+    
     public MockServiceService() {
-        var newService = new Service();
-        newService.setId(1l);
-        newService.setName("Sites legais");
-        services.add(newService);
+        
+    }
 
-        newService = new Service();
-        newService.setId(2l);
-        newService.setName("TI doida");
+    @Override
+    public void create(Long id, String name, String description, Boolean isInternal, User createdBy) {
+        var newService = new Service();
+        newService.setId(id);
+        newService.setName(name);
+        newService.setDescription(description);
+        newService.setIsInternal(isInternal);
+        newService.setCreatedBy(createdBy);
         services.add(newService);
     }
 
@@ -41,4 +45,5 @@ public class MockServiceService implements ServiceService {
             return pageServices;
         }
     }
+
 }

@@ -11,14 +11,14 @@ public class MockDepartmentService implements DepartmentService {
     private static List<Department> departments = new ArrayList<Department>();
 
     public MockDepartmentService() {
-        var newDepartment = new Department();
-        newDepartment.setId(1l);
-        newDepartment.setName("RHRF");
-        departments.add(newDepartment);
+    
+    }
 
-        newDepartment = new Department();
-        newDepartment.setId(2l);
-        newDepartment.setName("RHRF2");
+    @Override
+    public void create(Long id, String name) {
+        var newDepartment = new Department();
+        newDepartment.setId(id);
+        newDepartment.setName(name);
         departments.add(newDepartment);
     }
  
@@ -26,4 +26,5 @@ public class MockDepartmentService implements DepartmentService {
     public List<Department> getAll() {
         return departments;
     }
+
 }
