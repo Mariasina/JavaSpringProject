@@ -16,7 +16,7 @@ public class MockDepartmentService implements DepartmentService {
 
     @Override
     public void create(Long id, String name) {
-        //creates a user with the parameters sent and adds it to the newDepartment
+        //creates a department with the parameters sent and adds it to the newDepartment
         var newDepartment = new Department();
         newDepartment.setId(id);
         newDepartment.setName(name);
