@@ -5,7 +5,7 @@ import com.trevis.startup.example.model.UserData;
 
 public interface UserService {
     
-    public Boolean create(Long id, String username, Integer role, DepartmentData department, String password);
+    public Boolean create(Long id, String username, Integer role, DepartmentData department);
     public Boolean updatePassword(Long id, String newPassword);
     public UserData get(String username);
 }

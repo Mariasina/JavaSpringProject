@@ -22,8 +22,8 @@ public class UserServiceTests {
 
     @Test
     void userCreate() {
-        assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData(), "Haha@123"), true);
-		assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData(), "222"), false);
+        assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData()), true);
+		assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData()), false);
     }
 
     @Test
