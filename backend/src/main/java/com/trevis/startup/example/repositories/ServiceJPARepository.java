@@ -11,4 +11,6 @@ import com.trevis.startup.example.model.ServiceData;
 @Repository
 public interface ServiceJPARepository extends JpaRepository<ServiceData, Long>{
     List<ServiceData> findByLabelContaining(String label);
+    @SuppressWarnings("null")
+    List<ServiceData> findAll();
 }
