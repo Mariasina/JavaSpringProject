@@ -1,4 +1,4 @@
-package com.trevis.startup.example.controller;
+package com.trevis.startup.example.controllers;
 
 public class DepartmentServiceController {
     

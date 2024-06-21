@@ -1,4 +1,4 @@
-package com.trevis.startup.example.controller;
+package com.trevis.startup.example.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
