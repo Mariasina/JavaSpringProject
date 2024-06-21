@@ -2,9 +2,9 @@ package com.trevis.startup.example.services;
 
 import java.util.List;
 
-import com.trevis.startup.example.model.Department;
+import com.trevis.startup.example.model.DepartmentData;
 
 public interface DepartmentService {
-    void create(Long id, String name);
-    List<Department> getAll();
+    
+    public List<DepartmentData> getAll();
 }

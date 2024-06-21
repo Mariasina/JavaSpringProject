@@ -1,5 +1,9 @@
 package com.trevis.startup.example.services;
 
+import com.trevis.startup.example.dto.AuthToken;
+
 public interface AuthService {
-    String login(String username, String password);
+    
+    // ..authtoken eh um dto..
+    public AuthToken login(String username, String password);
 }

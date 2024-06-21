@@ -1,41 +1,57 @@
 package com.trevis.startup.example;
 
-import java.util.Random;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 
-import com.trevis.startup.example.impl.*;
-import com.trevis.startup.example.services.*;
+import com.trevis.startup.example.impl.MockDepartmentService;
+import com.trevis.startup.example.impl.MockServiceService;
+import com.trevis.startup.example.impl.MockUserService;
+import com.trevis.startup.example.services.DepartmentService;
+import com.trevis.startup.example.services.ServiceService;
+import com.trevis.startup.example.services.UserService;
 
 @Configuration
 public class DependenciesConfiguration {
 
+    // mocks
     @Bean
-    public HelloService helloService() {
-        Random rand = new Random();
-        if (rand.nextInt(2) == 0)
-            return new DatabaseHelloService();
-        return new MockHelloService();
-    }
-
-    @Bean
-    @Scope
     public UserService userService() {
         return new MockUserService();
     }
 
     @Bean
-    @Scope
     public DepartmentService departmentService() {
         return new MockDepartmentService();
     }
 
     @Bean
-    @Scope
     public ServiceService serviceService() {
         return new MockServiceService();
     }
 
+    // implementacao de fato
+    // @Bean
+    // public UserService userService() {
+    //     return new UserService();
+    // }
+
+    // @Bean
+    // public DepartmentService departmentService() {
+    //     return new DepartmentService();
+    // }
+
+    // @Bean
+    // public ServiceService serviceService() {
+    //     return new ServiceService();
+    // }
+
+    // @Bean
+    // public PasswordService passwordService() {
+    //     return new PasswordService();
+    // }
+
+    // @Bean
+    // public AuthService authService() {
+    //     return new AuthService();
+    // }
 }

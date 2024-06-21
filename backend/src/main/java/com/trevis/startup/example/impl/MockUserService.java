@@ -2,52 +2,88 @@ package com.trevis.startup.example.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.trevis.startup.example.model.DepartmentData;
+import com.trevis.startup.example.model.UserData;
+import com.trevis.startup.example.services.PasswordService;
 import com.trevis.startup.example.services.UserService;
-import com.trevis.startup.example.model.Department;
-import com.trevis.startup.example.model.User;
 
-public class MockUserService implements UserService{
-    private List<User> users =  new ArrayList<>();
-
-    public MockUserService(){
-        
-    }
-
+public class MockUserService implements UserService {
+    
+    @Autowired
+    PasswordService passService;
+    
+    private List<UserData> users = new ArrayList<>();
+    
     @Override
-    public void create(Long id, String username, String password, Integer type, Department department) {
-        //creates a user with the parameters sent and adds it to the mock list
-        var user = new User();
-
-        user = new User();
+    public Boolean create(Long id, String username, Integer role, DepartmentData department, String password) {
+        var user = new UserData();
         user.setId(id);
         user.setUsername(username);
-        user.setPassword(password);
-        user.setType(type);
+        user.setRole(role);
         user.setDepartment(department);
+
+        if(!passService.verifyRules(password)){
+            return false;
+        } 
+
+        String encryptedPassword;
+        encryptedPassword = passService.applyCryptography(password);
+        user.setPassword(encryptedPassword);
+
         users.add(user);
+
+        return true;
     }
 
     @Override
-    public void updatePassword(Long id, String newPassword) {
-        //finds the serched user, then sets their password as newPassword
-       for (User user : users) {
-            if(user.getId() == id){
-                user.setPassword(newPassword);
+    public Boolean updatePassword(Long id, String newPassword) {
+        createUser(1l, "jessiquinha123", 0, new DepartmentData(), "Haha@123");
+
+        UserData loginUser = null;
+        for (UserData user : users) {
+            if (user.getId() == id) {
+                loginUser = user;
+                break;
             }
         }
+
+        if(loginUser == null) {
+            return false;
+        }
+
+        if(!passService.verifyRules(newPassword)){
+            return false;
+        } 
+        
+        String encryptedPassword = passService.applyCryptography(newPassword);
+        loginUser.setPassword(encryptedPassword);
+
+        return true;
     }
 
     @Override
-    public User get(String username) {
-        //finds the serched user and returns it
-        for (User user : users) {
-            if(user.getUsername() == username){
+    public UserData get(String username) {
+        createUser(1l, "username", 0, new DepartmentData(), "Haha@123");
+
+        for (UserData user : users) {
+            if (user.getUsername() == username) {
                 return user;
             }
         }
-        
+
         return null;
+    }
+
+    public void createUser(Long id, String username, Integer role, DepartmentData department, String password) {
+        var user = new UserData();
+        user.setId(id);
+        user.setUsername(username);
+        user.setRole(role);
+        user.setDepartment(department);
+
+        users.add(user);
     }
     
 }
