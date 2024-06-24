@@ -3,6 +3,7 @@ package com.trevis.startup.example.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trevis.startup.example.dto.Login;
 // import com.trevis.startup.example.dto.Login;
 import com.trevis.startup.example.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class UserServiceController {
     UserService validator;
 
     // @PostMapping("/auth")
-    // public String TryLogin(@RequestBody Login login) {
+    // public Login TryLogin(@RequestBody Login login) {
     //     return 
     // }
 
@@ -26,6 +27,5 @@ public class UserServiceController {
         
         return "a";
     }
-    
     
 }
