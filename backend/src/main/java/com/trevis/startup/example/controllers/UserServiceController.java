@@ -3,8 +3,10 @@ package com.trevis.startup.example.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+// import com.trevis.startup.example.dto.Login;
 import com.trevis.startup.example.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -15,9 +17,8 @@ public class UserServiceController {
     UserService validator;
 
     // @PostMapping("/auth")
-    // public String postMethodName(@RequestParam String login, @RequestParam String password) {
-        
-    //     return "a";
+    // public String TryLogin(@RequestBody Login login) {
+    //     return 
     // }
 
     @PostMapping("/user")
