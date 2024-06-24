@@ -1,36 +1,40 @@
 package com.trevis.startup.example.impl;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.trevis.startup.example.dto.AuthToken;
+import com.trevis.startup.example.model.UserData;
 import com.trevis.startup.example.services.AuthService;
+import com.trevis.startup.example.services.PasswordService;
+import com.trevis.startup.example.services.UserService;
 
 public class DefaultAuthService implements AuthService {
+    @Autowired
+    JWTService jwt;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    PasswordService passService;
+
     @Override
     public AuthToken login(String username, String password) {
-        String jwtToken = "ablublublé";
+        UserData user = userService.get(username);
+        Long userId = user.getId();
+        Integer userRole = user.getRole();
 
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .build(); // Cria o verificador
-
-            // Verifica e decodifica o token
-            DecodedJWT decodedJWT = verifier.verify(jwtToken);
-
-            // Exibe as informações decodificadas do token
-            System.out.println("Username: " + decodedJWT.getClaim("username").asString());
-            System.out.println("Role: " + decodedJWT.getClaim("role").asString());
-            System.out.println("Issued At: " + decodedJWT.getIssuedAt());
-
-        } catch (JWTVerificationException exception) {
-            // Exceção lançada se a verificação falhar
-            System.out.println("Token inválido!");
+        if(user == null){
+            return new AuthToken("User not found", null);
         }
-
-        return null;
+        else if(!passService.verifyCryptography(password, user.getPassword())){
+            return new AuthToken("Incorect password", null);
+        }
+        else{
+            String token = jwt.createJWT(userId, userRole);
+            return new AuthToken("Login was succesful", token);
+        }    
     }
+
+    
 }
