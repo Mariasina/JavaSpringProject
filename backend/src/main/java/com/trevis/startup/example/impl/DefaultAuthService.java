@@ -18,6 +18,7 @@ public class DefaultAuthService implements AuthService {
     @Autowired
     PasswordService passService;
 
+    @SuppressWarnings("unused")
     @Override
     public AuthToken login(String username, String password) {
         UserData user = userService.get(username);
