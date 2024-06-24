@@ -3,7 +3,6 @@ package com.trevis.startup.example.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trevis.startup.example.dto.Login;
 // import com.trevis.startup.example.dto.Login;
 import com.trevis.startup.example.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
