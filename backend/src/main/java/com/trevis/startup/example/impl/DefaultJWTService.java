@@ -12,13 +12,14 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.trevis.startup.example.services.JWTService;
 
-public class JWTService {
+public class DefaultJWTService implements JWTService{
     private RSAPrivateKey privateKey;
     private RSAPublicKey publicKey;
     private Algorithm algorithm;
 
-    JWTService() throws NoSuchAlgorithmException{
+    public DefaultJWTService() throws NoSuchAlgorithmException{
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);
         KeyPair keyPair = keyPairGenerator.generateKeyPair();
@@ -30,6 +31,7 @@ public class JWTService {
 
     }
 
+    @Override
     public String createJWT(Long id, Integer role) {
         String jwtToken = JWT.create()
                 .withIssuer("Auth Service")
@@ -41,6 +43,7 @@ public class JWTService {
         return jwtToken;
     }
 
+    @Override
     public void verifyJWT(String jwtToken) {
         try {
             JWTVerifier verifier = JWT.require(algorithm)

@@ -10,7 +10,7 @@ import com.trevis.startup.example.services.UserService;
 
 public class DefaultAuthService implements AuthService {
     @Autowired
-    JWTService jwt;
+    DefaultJWTService jwt;
 
     @Autowired
     UserService userService;
