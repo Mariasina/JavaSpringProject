@@ -3,10 +3,14 @@ package com.trevis.startup.example;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.trevis.startup.example.impl.DefaultAuthService;
+import com.trevis.startup.example.impl.DefaultPasswordService;
 import com.trevis.startup.example.impl.MockDepartmentService;
 import com.trevis.startup.example.impl.MockServiceService;
 import com.trevis.startup.example.impl.MockUserService;
+import com.trevis.startup.example.services.AuthService;
 import com.trevis.startup.example.services.DepartmentService;
+import com.trevis.startup.example.services.PasswordService;
 import com.trevis.startup.example.services.ServiceService;
 import com.trevis.startup.example.services.UserService;
 
@@ -45,13 +49,13 @@ public class DependenciesConfiguration {
     //     return new ServiceService();
     // }
 
-    // @Bean
-    // public PasswordService passwordService() {
-    //     return new PasswordService();
-    // }
+    @Bean
+    public PasswordService passwordService() {
+        return new DefaultPasswordService();
+    }
 
-    // @Bean
-    // public AuthService authService() {
-    //     return new AuthService();
-    // }
+    @Bean
+    public AuthService authService() {
+        return new DefaultAuthService();
+    }
 }
