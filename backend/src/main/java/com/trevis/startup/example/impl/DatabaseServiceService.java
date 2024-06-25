@@ -14,6 +14,8 @@ public class DatabaseServiceService implements ServiceService {
     @Autowired
     ServiceJPARepository repo;
 
+    //falta implementar a função de criar serviço
+
     @Override
     public List<ServiceData> get(String query, Integer pageIndex, Integer pageSize) {
         if(pageIndex == null) {

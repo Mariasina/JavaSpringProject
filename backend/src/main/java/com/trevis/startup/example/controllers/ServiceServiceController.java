@@ -19,6 +19,7 @@ public class ServiceServiceController {
         return new ServiceDTO("Success", validator.get(query, page, size));
     }
 
+    //falta implementar o endpoint de criar serviço
     // @PostMapping("/service")
     // public String postMethodName(@RequestBody String entity) {
         
