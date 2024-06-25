@@ -13,12 +13,34 @@ public class DefaultKeyService implements AuthKeyService{
 
     @Override
     public RSAPrivateKey getPrivateKey() {
+        try
+        {
+            if (keyPairs == null)
+                createKeyPair();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPairs.getPrivate();
         return privateKey;
     }
 
     @Override
     public RSAPublicKey getPublicKey() {
+        try
+        {
+            if (keyPairs == null)
+                createKeyPair();
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            return null;
+        }
+        
         RSAPublicKey publicKey = (RSAPublicKey) keyPairs.getPublic();
         return publicKey;
     }
