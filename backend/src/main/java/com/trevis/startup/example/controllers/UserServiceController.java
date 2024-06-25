@@ -31,12 +31,12 @@ public class UserServiceController {
     @PostMapping("/user")
     public String postMethodName(@RequestBody UserCreate user, @RequestHeader String token) {
 
-        // Integer role = jwtService.verifyJWT(token); 
+        Integer role = jwtService.verifyJWT(token); 
 
-        // if(role == 0)
+        if(role == 0)
             validator.create(user);
-        // else
-        // throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have access to this feature.");
+        else
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "You don't have access to this feature.");
 
         return "Usuário criado";
     }
