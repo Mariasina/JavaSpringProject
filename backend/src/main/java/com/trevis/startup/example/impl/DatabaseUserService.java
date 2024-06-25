@@ -49,6 +49,8 @@ public class DatabaseUserService implements UserService {
             password += characters[position];
         }
 
+        System.out.println("Senha:" + password);
+
         String encryptedPassword;
         encryptedPassword = passService.applyCryptography(password);
         user.setPassword(encryptedPassword);
@@ -68,14 +70,16 @@ public class DatabaseUserService implements UserService {
 
         if (!passService.verifyRules(newPassword)) {
             return false;
+        }else{
+
+            String encryptedPassword = passService.applyCryptography(newPassword);
+            loginUser.setPassword(encryptedPassword);
+    
+            repo.save(loginUser);
+    
+            return true;
         }
 
-        String encryptedPassword = passService.applyCryptography(newPassword);
-        loginUser.setPassword(encryptedPassword);
-
-        repo.save(loginUser);
-
-        return true;
     }
 
     @Override

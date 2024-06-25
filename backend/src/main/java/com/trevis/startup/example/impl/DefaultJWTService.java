@@ -16,20 +16,19 @@ import com.trevis.startup.example.services.AuthKeyService;
 
 import jakarta.annotation.PostConstruct;
 
-public class DefaultJWTService implements AuthJWTService{
+public class DefaultJWTService implements AuthJWTService {
     @Autowired
     AuthKeyService keyService;
-    
+
     private RSAPrivateKey privateKey;
     private RSAPublicKey publicKey;
     private Algorithm algorithm;
 
-    public DefaultJWTService(){
+    public DefaultJWTService() {
     }
 
     @PostConstruct
-    void init()
-    {
+    void init() {
         privateKey = keyService.getPrivateKey();
         publicKey = keyService.getPublicKey();
 
@@ -44,30 +43,22 @@ public class DefaultJWTService implements AuthJWTService{
                 .withClaim("id", id)
                 .withClaim("role", role)
                 .withIssuedAt(new Date())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 5000L))
                 .sign(algorithm);
         return jwtToken;
     }
 
     @Override
-    public void verifyJWT(String jwtToken) {
-        try {
-            JWTVerifier verifier = JWT.require(algorithm)
-                    .build(); 
+    public Integer verifyJWT(String jwtToken) {
 
-            // Verifica e decodifica o token
-            DecodedJWT decodedJWT = verifier.verify(jwtToken);
+        JWTVerifier verifier = JWT.require(algorithm)
+            .withIssuer("Auth Service")
+            .build();
 
-            // Exibe as informações decodificadas do token
-            System.out.println("Id: " + decodedJWT.getClaim("id").asString());
-            System.out.println("Role: " + decodedJWT.getClaim("role").asString());
-            System.out.println("Issued At: " + decodedJWT.getIssuedAt());
+        // Verifica e decodifica o token
+        DecodedJWT decodedJWT = verifier.verify(jwtToken);
 
-        } catch (JWTVerificationException exception) {
-            // Exceção lançada se a verificação falhar
-            System.out.println("Token inválido!");
-        }
-
+        // Exibe as informações decodificadas do token
+        return decodedJWT.getClaim("role").asInt();
     }
 
 }
