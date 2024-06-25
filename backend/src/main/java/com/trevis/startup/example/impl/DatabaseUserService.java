@@ -4,8 +4,10 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.trevis.startup.example.dto.UserCreate;
 import com.trevis.startup.example.model.DepartmentData;
 import com.trevis.startup.example.model.UserData;
+import com.trevis.startup.example.repositories.DepartmentJPARepository;
 import com.trevis.startup.example.repositories.UserJPARepository;
 import com.trevis.startup.example.services.PasswordService;
 import com.trevis.startup.example.services.UserService;
@@ -18,13 +20,20 @@ public class DatabaseUserService implements UserService {
     @Autowired
     PasswordService passService;
 
+    @Autowired
+    DepartmentJPARepository departRepo;
+
     @Override
-    public Boolean create(Long id, String username, Integer role, DepartmentData department) {
+    public Boolean create(UserCreate newUser) {
         var user = new UserData();
-        user.setId(id);
-        user.setUsername(username);
-        user.setRole(role);
-        user.setDepartment(department);
+        user.setUsername(newUser.login());
+        user.setRole(newUser.role());
+        var department = departRepo.findById(newUser.department());
+
+        if (department.isPresent()) {
+            DepartmentData newDepartment = department.get();
+            user.setDepartment(newDepartment);
+        }
 
         Random random = new Random();
 
@@ -63,6 +72,8 @@ public class DatabaseUserService implements UserService {
 
         String encryptedPassword = passService.applyCryptography(newPassword);
         loginUser.setPassword(encryptedPassword);
+
+        repo.save(loginUser);
 
         return true;
     }
