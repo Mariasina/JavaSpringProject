@@ -1,31 +1,30 @@
 package com.trevis.startup.example.impl;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.trevis.startup.example.services.JWTService;
+import com.trevis.startup.example.services.AuthJWTService;
+import com.trevis.startup.example.services.AuthKeyService;
 
-public class DefaultJWTService implements JWTService{
+public class DefaultJWTService implements AuthJWTService{
+    @Autowired
+    AuthKeyService keyService;
+    
     private RSAPrivateKey privateKey;
     private RSAPublicKey publicKey;
     private Algorithm algorithm;
 
-    public DefaultJWTService() throws NoSuchAlgorithmException{
-        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(2048);
-        KeyPair keyPair = keyPairGenerator.generateKeyPair();
-
-        publicKey = (RSAPublicKey) keyPair.getPublic();
-        privateKey = (RSAPrivateKey) keyPair.getPrivate();
+    public DefaultJWTService(){
+        privateKey = keyService.getPrivateKey();
+        publicKey = keyService.getPublicKey();
 
         algorithm = Algorithm.RSA256(publicKey, privateKey);
 
@@ -47,7 +46,7 @@ public class DefaultJWTService implements JWTService{
     public void verifyJWT(String jwtToken) {
         try {
             JWTVerifier verifier = JWT.require(algorithm)
-                    .build(); // Cria o verificador
+                    .build(); 
 
             // Verifica e decodifica o token
             DecodedJWT decodedJWT = verifier.verify(jwtToken);
@@ -63,4 +62,5 @@ public class DefaultJWTService implements JWTService{
         }
 
     }
+
 }

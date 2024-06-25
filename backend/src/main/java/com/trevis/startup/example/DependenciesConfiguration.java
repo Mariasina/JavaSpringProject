@@ -1,7 +1,5 @@
 package com.trevis.startup.example;
 
-import java.security.NoSuchAlgorithmException;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -54,7 +52,12 @@ public class DependenciesConfiguration {
     }
 
     @Bean
-    public JWTService jwtService() {
+    public AuthJWTService authJwtService() {
         return new DefaultJWTService();
+    }
+
+    @Bean
+    public AuthKeyService authKeyService() {
+        return new DefaultKeyService();
     }
 }
