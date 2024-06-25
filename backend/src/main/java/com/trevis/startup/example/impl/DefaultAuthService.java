@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.trevis.startup.example.dto.AuthToken;
 import com.trevis.startup.example.model.UserData;
 import com.trevis.startup.example.services.AuthService;
+import com.trevis.startup.example.services.AuthJWTService;
 import com.trevis.startup.example.services.PasswordService;
 import com.trevis.startup.example.services.UserService;
 
 public class DefaultAuthService implements AuthService {
     @Autowired
-    JWTService jwt;
+    AuthJWTService jwtService;
 
     @Autowired
     UserService userService;
@@ -32,7 +33,7 @@ public class DefaultAuthService implements AuthService {
             return new AuthToken("Incorect password", null);
         }
         else{
-            String token = jwt.createJWT(userId, userRole);
+            String token = jwtService.createJWT(userId, userRole);
             return new AuthToken("Login was succesful", token);
         }    
     }
