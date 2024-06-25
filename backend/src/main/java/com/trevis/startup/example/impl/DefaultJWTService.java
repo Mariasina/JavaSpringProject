@@ -14,6 +14,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.trevis.startup.example.services.AuthJWTService;
 import com.trevis.startup.example.services.AuthKeyService;
 
+import jakarta.annotation.PostConstruct;
+
 public class DefaultJWTService implements AuthJWTService{
     @Autowired
     AuthKeyService keyService;
@@ -23,6 +25,11 @@ public class DefaultJWTService implements AuthJWTService{
     private Algorithm algorithm;
 
     public DefaultJWTService(){
+    }
+
+    @PostConstruct
+    void init()
+    {
         privateKey = keyService.getPrivateKey();
         publicKey = keyService.getPublicKey();
 
