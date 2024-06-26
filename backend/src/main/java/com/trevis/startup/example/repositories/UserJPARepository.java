@@ -1,11 +1,11 @@
 package com.trevis.startup.example.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import com.trevis.startup.example.model.UserData;
+import com.trevis.startup.example.model.User;
 
-@Repository
-public interface UserJPARepository extends JpaRepository<UserData, Long>{
-    UserData findByUsername(String username);
+public interface UserJPARepository extends JpaRepository<User, Long>{
+    List<User> findByUsernameContaining(String search);
 }

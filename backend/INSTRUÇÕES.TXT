@@ -1,0 +1,16 @@
+AUTENTICAÇÃO JWT
+    A autenticação jwt não está implementada nos controllers. Invés disso, criamos uma classe "AuthFilter" (na pasta "filters") que faz o filter para TODAS
+    as controllers, exceto a controller de autenticação.
+
+    Para autenticar as suas requests, você precisa fazer login (rota: /api/auth) TODA vez que reiniciar o servidor, e usar o novo token.
+        
+        Nos headers da sua request, adicione uma chave "auth", tendo como valor o token devolvido no seu login.
+    
+    Se você vier a criar novas controllers, você deve configurar o filter para também aplicar a autenticação nessa rota. Para tal, basta acessar a classe
+    FiltersConfiguration (no nível raíz) e adicionar o caminho.
+
+        Exemplo: para uma nova rota "/api/banana", adicionar "/api/banana/*" nas rotas listadas.
+
+IMPORTANTE:
+    Todas as rotas são prefixadas por "/api/". Se quiser, pode mudar isso.
+

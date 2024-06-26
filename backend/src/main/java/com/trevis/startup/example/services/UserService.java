@@ -1,11 +1,14 @@
 package com.trevis.startup.example.services;
 
-import com.trevis.startup.example.dto.UserCreate;
-import com.trevis.startup.example.model.UserData;
+import com.trevis.startup.example.exceptions.BadHashConfigurationException;
+import com.trevis.startup.example.exceptions.NoSuchEntityException;
+import com.trevis.startup.example.model.Department;
+import com.trevis.startup.example.model.User;
+import com.trevis.startup.example.model.UserType;
 
 public interface UserService {
-    
-    public Boolean create(UserCreate user);
-    public Boolean updatePassword(Long id, String newPassword);
-    public UserData get(String username);
+    User create(String username, Department department, UserType type);
+    Boolean updatePassword(Long id, String newPassword) throws NoSuchEntityException, BadHashConfigurationException;
+    User get(String username) throws NoSuchEntityException;
+    User findById(Long id) throws NoSuchEntityException;
 }

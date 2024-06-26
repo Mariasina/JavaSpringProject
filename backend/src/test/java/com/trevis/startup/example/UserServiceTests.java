@@ -1,35 +1,62 @@
-// package com.trevis.startup.example;
+package com.trevis.startup.example;
 
-// import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// import com.trevis.startup.example.model.DepartmentData;
-// import com.trevis.startup.example.services.UserService;
+import com.trevis.startup.example.model.Department;
+import com.trevis.startup.example.model.User;
+import com.trevis.startup.example.model.UserType;
+import com.trevis.startup.example.services.UserService;
 
-// @SpringBootTest
-// public class UserServiceTests {
 
-//     @Autowired
-// 	UserService userService;
+@SpringBootTest
+class UserServiceTests {
     
-//     @Test
-// 	void userGet() {
-// 		assertEquals(userService.get("pedrin"), null);
-// 	}
+    @Autowired
+    UserService service;
 
-//     @Test
-//     void userCreate() {
-//         assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData()), true);
-// 		assertEquals(userService.create(1l, "jessiquinha123", 0, new DepartmentData()), false);
-//     }
+    @Test
+    void userCreateTest() {
+        Department department = new Department();
+        department.setName("Management");
+        UserType usertype = new UserType();
+        usertype.setType("Manager");
+        User createUser = service.create("Don", department, usertype);
 
-//     @Test
-//     void userUpdatePassword() {
-//         assertEquals(userService.updatePassword(1l, "Haha@12356!"), true);
-// 		assertEquals(userService.updatePassword(53426523l, "Haha@12356!"), false);
-// 		assertEquals(userService.updatePassword(1l, "22"), false);
-//     }
-// }
+        assertNotNull(createUser.getId());
+        assertEquals("Don", createUser.getUsername());
+        assertEquals(department, createUser.getDepartment());
+        assertEquals(usertype, createUser.getUsertype());
+    }
+
+    @Test
+    void userUpdatePassTest() {
+        Department department = new Department();
+        department.setName("Management");
+        UserType usertype = new UserType();
+        usertype.setType("Manager");
+        User createUser = service.create("Queila", department, usertype);
+
+        assertDoesNotThrow(() -> service.updatePassword(createUser.getId(), "12345678"));
+
+        assertEquals(createUser.getPassword(), "12345678");
+    }
+
+    @Test
+    void UserGetTest(){
+        Department department = new Department();
+        department.setName("Management");
+        UserType usertype = new UserType();
+        usertype.setType("Manager");
+        User createUser = service.create("Joao", department, usertype);
+
+        User userInDatabase = assertDoesNotThrow(() -> service.get("Joao"));
+
+        assertEquals(userInDatabase, createUser);
+    }
+}

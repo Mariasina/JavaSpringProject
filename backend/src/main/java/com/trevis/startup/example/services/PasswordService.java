@@ -1,8 +1,9 @@
 package com.trevis.startup.example.services;
 
+import com.trevis.startup.example.exceptions.BadHashConfigurationException;
+
 public interface PasswordService {
-    
-    public String applyCryptography(String password); 
-    public Boolean verifyCryptography(String password, String encryptedPassword);
-    public Boolean verifyRules(String password);
+    String applyCryptography(String password) throws BadHashConfigurationException ;
+    Boolean verifyCryptography(String password, String encryptedPassword) throws BadHashConfigurationException;
+    int verifyRules(String password);
 }
