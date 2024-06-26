@@ -1,0 +1,40 @@
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    background-color: #042A2B;
+    color: #f0f0f0;
+}
+
+main{
+    color: #042A2B;
+    background-image: linear-gradient(to bottom, #042A2B, #5EB1BF)
+}
+
+.logo-img{
+    width: 80px;
+}
+
+.icon-img{
+    width: 25px;
+}
+
+.nav-link{
+    color: #f0f0f0;
+}
+
+.home-cards{
+    width: 90%;
+    display: flex;
+}
+
+.card{
+    width: 70%;
+}
+
+.card-img-top{
+    width: 300px;
+}
