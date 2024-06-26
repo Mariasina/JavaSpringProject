@@ -23,6 +23,12 @@ h1{
     align-items: center;
 }
 
+.background-list{
+    width: 80%;
+    height: 80vh;
+    background-color: black;
+}
+
 .arrow-image{
     position: fixed;
     margin-top: 25px;
