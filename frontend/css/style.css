@@ -1,0 +1,66 @@
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+main{
+    display: flex;
+    
+}
+
+h1{
+    font-size: 3.5rem;
+}
+
+input, select{
+    font-size: 1rem;
+    padding: 7px;
+}
+
+button{
+    padding: 7px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.title-area{
+    width: 50%;
+    height: 100vh;
+    background-color: #5EB1BF;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-area{
+    width: 50%;
+    height: 100vh;
+    background-color: #f6f7f7;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    width: 50%;
+}
+
+.form-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 3px;
+}
+
+.register-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
