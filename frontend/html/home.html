@@ -30,52 +30,56 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#"><b>Olá, user</b></a>
+                            <a><b>Olá, user</b></a>
                         </li>
                     </ul>
                     <span class="nav-link">
-                        <b>Logout</b>
-                        <img src="../img/logout.png" class="icon-img">
+                        <a href="">
+                            <b>Logout</b>
+                            <img src="../img/logout.png" class="icon-img">
+                        </a>
                     </span>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div>
+        <div class="home-content">
             <div>
-                <h1>Home</h1>
+                <h1>Bem Vindo!</h1>
             </div>
             <div class="home-cards row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card">
-                        <img src="../img/icon-add-user.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                    
+                <a href="register.html">
+                    <div class="col">
+                        <div class="card shadow">
+                            <img src="../img/icon-add-user-dot.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Adicionar Usuário</h5>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="../img/icon-add-service.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content. This content is a little bit longer.</p>
+                </a>
+                <a href="createService.html">
+                    <div class="col">
+                        <div class="card shadow">
+                            <img src="../img/icon-add-service-dot.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Adicionar Serviço</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col">
-                    <div class="card">
-                        <img src="../img/icon-view-service.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                                to additional content.</p>
+                </a>
+                <a href="listService.html">
+                    <div class="col">
+                        <div class="card shadow">
+                            <img src="../img/icon-view-service-dot.png" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Vizualizar Serviços</h5>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </main>

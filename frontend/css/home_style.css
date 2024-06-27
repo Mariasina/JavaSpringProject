@@ -4,14 +4,32 @@
     padding: 0;
 }
 
+body{
+    height: 100vh;
+    /* background-image: linear-gradient(to bottom, #1a4242, #4a96a3, #a8dadc); */
+    background-image: url(../img/background.png);
+    backdrop-filter: blur(5px);
+
+    
+}
+
 header{
-    background-color: #042A2B;
+    background-color: #042a2b3a;
     color: #f0f0f0;
 }
 
 main{
     color: #042A2B;
-    background-image: linear-gradient(to bottom, #042A2B, #5EB1BF)
+}
+
+h1{
+    color: #f0f0f0;
+    text-shadow: #04141bd3 1px 1px 3px;
+}
+
+h5{
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 .logo-img{
@@ -24,17 +42,45 @@ main{
 
 .nav-link{
     color: #f0f0f0;
+    text-decoration: none;
+}
+
+.home-content{
+    margin-top: 40px;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .home-cards{
-    width: 90%;
+    width: 100%;
+    padding: 30px 50px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    & :hover{
+        transform: scale(1.1);
+    }
 }
 
 .card{
-    width: 70%;
+    width: 75%;
+    padding: 60px 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
 }
 
 .card-img-top{
-    width: 300px;
+    width: 280px;
 }
