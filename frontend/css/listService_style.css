@@ -13,11 +13,6 @@ h1{
     font-size: 3.5rem;
 }
 
-label{
-    color: white;
-    margin-left: 10px;
-}
-
 nav{
     display: flex;
     justify-content: center;
@@ -36,8 +31,6 @@ nav{
 .background-list{
     width: 80%;
     height: 80vh;
-    background-color: black;
-    padding: 5px;
 }
 
 .arrow-image{
@@ -51,4 +44,8 @@ nav{
 .edit-image, .search-image{
     width: 24px;
     height: 24px;
+}
+
+.btn{
+    background-color: white;
 }
