@@ -13,6 +13,10 @@ body{
     
 }
 
+a{
+    text-decoration: none;
+}
+
 header{
     background-color: #042a2b3a;
     color: #f0f0f0;
@@ -30,6 +34,10 @@ h1{
 h5{
     font-size: 1.5rem;
     font-weight: 600;
+}
+
+.white-text{
+    color: #f0f0f0;
 }
 
 .logo-img{
