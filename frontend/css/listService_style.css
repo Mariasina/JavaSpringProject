@@ -46,6 +46,11 @@ nav{
     height: 24px;
 }
 
-.btn{
+.search-btn{
+    background-color: white;
+}
+
+button{
+    border-style: none;
     background-color: white;
 }

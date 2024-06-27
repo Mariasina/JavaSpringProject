@@ -31,11 +31,11 @@
             </a>
         </div>
         <div class="background-area">
-            <div class="background-list">
+            <div class="background-list" style="border-radius: 15px;">
                 <table class="table">
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="Procura de serviços" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2"><img class="search-image" src="../img/search.png"></button>
+                    <button class="search-btn btn btn-outline-secondary" type="button" id="button-addon2"><img class="search-image" src="../img/search.png"></button>
                   </div>
                   <thead>
                   <tr>
@@ -55,8 +55,8 @@
                       <td>@Descrição</td>
                       <td>@Gerente</td>
                       <td>@Setor</td>
-                      <td><img class="edit-image" src="../img/editar-texto.png"></td>
-                      <td><img src="../img/trash.png"></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#editModel"><img class="edit-image" src="../img/editar-texto.png"></button></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#deleteModel"><img src="../img/trash.png"></button></td>
                     </tr>
                     <tr>
                       <th scope="row">2</th>
@@ -64,8 +64,8 @@
                       <td>@Descrição</td>
                       <td>@Gerente</td>
                       <td>@Setor</td>
-                      <td><img class="edit-image" src="../img/editar-texto.png"></td>
-                      <td><img src="../img/trash.png"></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#editModel"><img class="edit-image" src="../img/editar-texto.png"></button></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#deleteModel"><img src="../img/trash.png"></button></td>
                     </tr>
                     <tr>
                       <th scope="row">3</th>
@@ -73,8 +73,8 @@
                       <td>@Descrição</td>
                       <td>@Gerente</td>
                       <td>@Setor</td>
-                      <td><img class="edit-image" src="../img/editar-texto.png"></td>
-                      <td><img src="../img/trash.png"></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#editModel"><img class="edit-image" src="../img/editar-texto.png"></button></td>
+                      <td><button data-bs-toggle="modal" data-bs-target="#deleteModel"><img src="../img/trash.png"></button></td>
                     </tr>
                   </tbody>
                 </table>
@@ -95,6 +95,58 @@
                 </nav>
             </div>
         </div>
+
+        <div class="modal fade" id="deleteModel" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Excluir serviço</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Deseja excluir o serviço selecionado?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Excluir</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="editModel" tabindex="-1">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Editar serviço</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-inputs">
+                  <label>Nome</label>
+                  <input type="text" name="name" placeholder="Nome" required>
+                </div>
+                <div class="form-inputs">
+                    <label>Descrição</label>
+                    <input type="text" name="description" placeholder="Descrição" required>
+                </div>
+                <div class="form-inputs">
+                    <label>Tipo do serviço</label>
+                    <select name="type-service" required>
+                        <option value="" disabled selected hidden>Escolha um tipo</option>
+                        <option value="1">Serviço interno</option>
+                        <option value="2">Não interno</option>
+                    </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
     </main>
     <footer>
 
