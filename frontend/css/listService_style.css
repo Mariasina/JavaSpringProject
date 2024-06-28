@@ -54,3 +54,12 @@ button{
     border-style: none;
     background-color: white;
 }
+
+.editModelColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+select{
+    height: 30px;
+}
