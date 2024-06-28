@@ -63,3 +63,8 @@ button{
 select{
     height: 30px;
 }
+
+table{
+    border-radius: 10px;
+    overflow: hidden;
+}
