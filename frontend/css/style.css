@@ -80,3 +80,24 @@ form{
     width: 40px;
     height: 40px;
 }
+
+@media screen and (max-width: 964px) {
+    main{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .title-area{
+        width: 100%;
+        height: 25vh;
+    }
+
+    .register-area{
+        width: 100%;
+        height: 75vh;
+    }
+
+    .logo-image{
+        margin-top: 20%;
+    }
+}
