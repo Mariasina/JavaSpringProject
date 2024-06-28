@@ -92,3 +92,24 @@ h5{
 .card-img-top{
     width: 280px;
 }
+
+@media screen and (max-width: 1400px){
+    .card-img-top{
+        width: 180px;
+    }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+    .home-cards{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .card{
+        width: 100%;
+    }
+
+    .col{
+        width: 200%;
+    }
+}

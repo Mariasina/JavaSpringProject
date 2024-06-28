@@ -46,6 +46,25 @@ nav{
     height: 24px;
 }
 
-.btn{
+.search-btn{
     background-color: white;
+}
+
+button{
+    border-style: none;
+    background-color: white;
+}
+
+.editModelColumn{
+    display: flex;
+    flex-direction: column;
+}
+
+select{
+    height: 30px;
+}
+
+table{
+    border-radius: 10px;
+    overflow: hidden;
 }
