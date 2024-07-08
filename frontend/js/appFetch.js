@@ -1,6 +1,3 @@
-// import 'regenerator-runtime/runtime';
-// import axios from 'axios';
-
 const form = document.querySelector('form');
 const URL = "http://localhost:8080"; // Verifique se está correto para o seu ambiente
 
@@ -11,10 +8,26 @@ form.addEventListener('submit', async event => {
     const department_data = document.getElementById('department').value;
     const role_data = document.getElementById('role').value;
 
+    if (department_data == 'RH') {
+        department_data = '0';
+    } else if (department_data == 'TI') {
+        department_data = '1';
+    } else {
+        department_data = '2'
+    }
+
+    if (role_data == 'Administrator') {
+        role_data = '0';
+    } else if (role_data == 'Manager') {
+        role_data = '1';
+    } else {
+        role_data = '2'
+    }
+
     registerUser({
         login: login_data,
-        department: "1",
-        role: "1"
+        department: department_data,
+        role: role_data
     });
 });
 
