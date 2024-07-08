@@ -11,6 +11,6 @@ public interface ServiceService {
     public ServiceModel Create(Service service, Long id);
     public Boolean Delete(Long id, Long idAuth);
     public Boolean Update(Long idService, Long Auth, Service service);
-    public List<ServiceModel> Get(String query, int pageIndex, int pageSize, Object departUser);
-    public List<ServiceModel> Get(String query, int pageIndex, int pageSize, Object departUser);
+    // public List<ServiceModel> Get(String query, int pageIndex, int pageSize, Object departUser);
+    
 } 
