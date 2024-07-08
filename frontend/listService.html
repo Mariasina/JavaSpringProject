@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/global.css">
+    <link rel="stylesheet" href="./styles/listService.css">
+    <script src="script.js"></script>
+
+    <title>Service Manager</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./assets/configuracoes.png">
+</head>
+
+<body>
+    <header>
+        <nav class="headerClass">
+            <img class="img-header" src="./assets/configuracoes.png" alt="">
+            <a class="header-link" href="index.html">Home</a>
+            <a class="header-link" href="addService.html">Service Register</a>
+            <a class="header-link" href="addUser.html">User Register</a>
+        </nav>
+    </header>
+
+    <div class="div-service-table">
+        <div class="search-container">
+            <input placeholder="Search service..." type="text"> <!-- Barra de pesquisa -->
+            <button>Search</button>
+        </div>
+
+
+        <div class="service-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Manager</th>
+                        <th scope="col">Department</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Service 1</td>
+                        <td>First Service</td>
+                        <td>Otto</td>
+                        <td>HR</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Service 2</td>
+                        <td>Second Service</td>
+                        <td>Alan</td>
+                        <td>IT</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Service 3</td>
+                        <td>Third Service</td>
+                        <td>Jenny</td>
+                        <td>ADM</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="pagination" id="pagination">
+        <button class="Page-btn" id="btnPrevPage">Previous</button>
+        <span id="pageInfo">Page <span id="currentPage">1</span> de <span id="totalPages">1</span></span>
+        <button class="Page-btn" id="btnNextPage">Next</button>
+    </div>
+
+    <div id="modalExcluir" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Deseja realmente excluir este serviço?</p>
+            <button id="btnConfirmDelete">Sim, excluir</button>
+            <button class="cancel" id="btnCancelDelete">Cancelar</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

@@ -2,107 +2,92 @@ package com.trevis.startup.example.impl.mock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.trevis.startup.example.dto.response.DataResponse;
-import com.trevis.startup.example.dto.response.DataService;
-import com.trevis.startup.example.exceptions.NoSuchEntityException;
-import com.trevis.startup.example.model.Service;
-import com.trevis.startup.example.model.User;
+import com.trevis.startup.example.dto.Service;
+import com.trevis.startup.example.model.DepartmentModel;
+import com.trevis.startup.example.model.ServiceModel;
+import com.trevis.startup.example.model.UserModel;
 import com.trevis.startup.example.services.ServiceService;
 
-public class MockServiceService implements ServiceService{
+public class MockServiceService implements ServiceService {
 
-    private static List<Service> services = new ArrayList<>();
-    private Long helper_id;
+    private List<ServiceModel> allServices = new ArrayList<>();
 
-    public MockServiceService(){
-        var newService = new Service();
-        newService.setId(1l);
-        newService.setName("Service1");
-        newService.setDescription("First service");
+    public MockServiceService() {
+        var department = new DepartmentModel();
+        department.setId(2l);
+        department.setName("ETS");
 
-        services.add(newService);
+        var user = new UserModel();
+        user.setId(2l);
+        user.setLogin("Mavizoka");
+        user.setRole(0);
+        user.setDepartment(department);
 
-        newService = new Service();
-        newService.setId(2l);
-        newService.setName("Service2");
-        newService.setDescription("Second service");
+        var service = new ServiceModel();
+        service.setId(1l);
+        service.setName("Client register");
+        service.setDescription("pipipi");
+        service.setIntern(true);
+        service.setManager(user);
 
-        services.add(newService);
-        helper_id = 2l;
+        allServices.add(service);
     }
 
     @Override
-    public DataResponse<DataService> get(String query, Integer pageIndex, Integer pageSize){
-        List<DataService> dataService = new ArrayList<>();
-        List<Service> pageServices = new ArrayList<>();
+    public List<ServiceModel> Get(String query, Integer pageIndex, Integer pageSize, DepartmentModel departUser) {
 
-        if (pageIndex < 1 || pageSize < 1) 
-            return new DataResponse<>("Pagination arguments cannot be equal to or less than zero.", null);
-
-        if (query != null) {
-
-            pageIndex *= pageSize;
-
-            var filteredServices = services.stream().filter(u -> u.getName().contains(query)).toList();
-
-
-            for(int i = pageIndex - pageSize; i < pageIndex; i ++){
-                pageServices.add(filteredServices.get(i));
-            }
-
-            dataService = pageServices.stream()
-                .map( s -> DataService.buildFromEntity(s))
-                .collect(Collectors.toList());
-
-        } else {
-
-            for(int i = pageIndex - pageSize; i < pageIndex; i ++){
-                pageServices.add(services.get(i));
-            }
-
-            dataService = pageServices.stream()
-                .map( s -> DataService.buildFromEntity(s))
-                .collect(Collectors.toList());
-
+        if (pageIndex == null || pageIndex == 0) {
+            pageIndex = 1;
         }
-        return new DataResponse<>("Matching services found.", dataService);
-    }
-
-    @Override
-    public Service create(String name, String description, Boolean internal, User menager) {
-        helper_id += 1;
-        Service newService = new Service();
-        newService.setName(name);
-        newService.setDescription(description);
-        newService.setInternal(internal);
-        newService.setManager(menager);
-        newService.setId(helper_id);
-
-        services.add(newService);
-        return newService;
-    }
-
-    @Override
-    public Service findById(Long id) throws NoSuchEntityException {
-        for (Service service : services) {
-            if(id == service.getId())
-                return service;
+        
+        if (query.isEmpty()) {
+            return paginate(pageIndex, pageSize, this.allServices);
         }
-        return null;
+
+        return paginate(pageIndex, pageSize, searchService(query));
     }
 
-    @Override
-    public void deleteById(Long id) {
-        for (Service service : services) {
-            if(id == service.getId())
-                services.remove(service);
+    public List<ServiceModel> searchService(String query) {
+        return allServices.stream()
+            .filter(u-> u.getName().contains(query))
+            .toList();
+    }
+
+    public List<ServiceModel> paginate(Integer pageIndex, Integer pageSize, List<ServiceModel> filteredServices) { 
+        // Este método é usado para filtrar todos os serviços nas páginas, mas usando apenas uma Lista
+        //É importante ressaltar que estamos usando (pageIndex * pageSize), por conta disso o pageIndex não pode ser 0, estamos tratando esta exceção na linha 39
+        if (filteredServices.size() < pageSize) {
+            return filteredServices;
         }
+
+        Integer qty = (pageIndex * pageSize) - 1;
+        List<ServiceModel> paginateServices = new ArrayList<>();
+
+        for (int i = (qty - pageSize); i < qty; i++) {
+            paginateServices.add(filteredServices.get(i));
+        }
+
+        return paginateServices;
     }
 
     @Override
-    public void save(Service service) {
-        services.add(service);
+    public ServiceModel Create(Service service, Long id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Create'");
     }
+
+    @Override
+    public Boolean Delete(Long id, Long idAuth) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Delete'");
+    }
+
+    @Override
+    public Boolean Update(Long idService, Long Auth, Service service) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'Update'");
+    }
+
+    
 }

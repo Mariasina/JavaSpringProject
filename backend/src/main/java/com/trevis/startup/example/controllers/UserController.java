@@ -1,116 +1,105 @@
 package com.trevis.startup.example.controllers;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.trevis.startup.example.dto.payload.PasswordChangePayload;
-import com.trevis.startup.example.dto.payload.UserPayload;
-import com.trevis.startup.example.dto.response.MessagesResponse;
-import com.trevis.startup.example.exceptions.BadHashConfigurationException;
-import com.trevis.startup.example.exceptions.NoSuchEntityException;
-import com.trevis.startup.example.model.Department;
-import com.trevis.startup.example.services.DepartmentService;
-import com.trevis.startup.example.services.PasswordService;
-import com.trevis.startup.example.services.UserService;
-import com.trevis.startup.example.services.UserTypeService;
-import com.trevis.startup.example.sessions.UserSession;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.trevis.startup.example.dto.ChangePass;
+import com.trevis.startup.example.dto.PasswordResponse;
+import com.trevis.startup.example.dto.UserCreate;
+import com.trevis.startup.example.impl.JWTGenerator;
+import com.trevis.startup.example.model.UserModel;
+import com.trevis.startup.example.repositories.UserJPARepository;
+import com.trevis.startup.example.services.PasswordService;
+import com.trevis.startup.example.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 @RestController
 public class UserController {
-    @Autowired
-    UserSession userSession;
 
     @Autowired
-    UserService userService;
+    UserService UserRepo;
 
     @Autowired
-    DepartmentService departmentService;
+    JWTGenerator jwt;
 
     @Autowired
-    PasswordService passwordService;
+    PasswordService repoPass;
 
     @Autowired
-    UserTypeService typeService;
-
-    @PostMapping("/api/user")
-    public ResponseEntity<MessagesResponse> createUser(@RequestBody UserPayload payload) throws NoSuchEntityException {
-        var requestingUserId = userSession.getId();
-        var requestingUser = userService.findById(requestingUserId);
-
-        List<String> messages = new ArrayList<>();
-        if (requestingUser.getUsertype().getId() != 2) {
-            messages.add("Action not allowed.");
-            return ResponseEntity.status(403).body(new MessagesResponse(messages));
+    UserJPARepository repoUser;
+    
+    @PostMapping("user")
+    public String createUser(@RequestHeader("token") String token, @RequestBody UserCreate user) {
+    
+        var payload = jwt.verificate(token);
+        if (payload == null) {
+            throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "invalid token"
+                );
+        }
+        
+        if (payload.role() != 0) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "You don't have permission to create a new user"
+            );
         }
 
-        var type = typeService.getById(payload.role().getId());
-        Department department;
-
-        try {
-            department = departmentService.getById(payload.department());
-        } catch (NoSuchEntityException ex) {
-            return ResponseEntity.notFound().build();
+            
+        if (!UserRepo.verifyUserAccount(user)) {
+            return "The user already exists!";
+        }
+        
+        if (!UserRepo.verifyDepartment(user.department())) {
+            return "Department not found!";
+        }
+        
+        if (!UserRepo.verifyRole(user.role())) {
+            return "Invalid role!";
         }
 
-        var savedUser = userService.create(
-            payload.login(),
-            department,
-            type
-        );
-
-        if (savedUser == null) {
-            messages.add("Could not create user.");
-            return ResponseEntity.badRequest().body(new MessagesResponse(messages));
+        if(UserRepo.Create(user) == null){
+            return "Error: account could not be created!";
         }
 
-        if (savedUser.getPassword() == null) {
-            messages.add("error when setting default password");
-            return ResponseEntity.badRequest().body(new MessagesResponse(messages));
-        }
-
-        messages.add("User created with success.");
-        return ResponseEntity.ok().body(new MessagesResponse(messages));
+        return "Succes: account created!";
     }
 
-    @PatchMapping("/api/user/{id}")
-    public ResponseEntity<MessagesResponse> updateUserPassword(
-            @PathVariable Long id,
-            @RequestBody PasswordChangePayload payload) {
-        Boolean changedSuccesfully;
-        List<String> messages = new ArrayList<>();
+    // TREVIS disse para tirar id da url, usar só o do token
+    @PatchMapping("user")
+    public PasswordResponse putMethodName(@RequestHeader("token") String token, @RequestBody ChangePass password) {
 
-        int passwordStrength = passwordService.verifyRules(payload.password());
+        var payload = jwt.verificate(token);
 
-        if (passwordStrength != 5) {
-            messages.add("The password is not strong enough.");
-            messages.add(String.format("%d", passwordStrength));
-            return ResponseEntity.badRequest().body(new MessagesResponse(messages));
+        if (payload == null) {
+            throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "invalid token"
+                );
         }
 
-        try {
-            changedSuccesfully = userService.updatePassword(id, payload.password());
-        } catch (NoSuchEntityException ex) {
-            return ResponseEntity.notFound().build();
-        } catch (BadHashConfigurationException ex) {
-            messages.add("Bad hash configuration on the serve-side.");
-            return ResponseEntity.internalServerError().body(new MessagesResponse(messages));
+        var listPass = repoPass.verifyRules(password.password());
+        
+        if (!(listPass.size() == 0)) {
+            return new PasswordResponse("Invalid password. Password does not meet the requirements",listPass);
         }
 
-        if (!changedSuccesfully) {
-            messages.add("Password does not meet requirements.");
-            return ResponseEntity.badRequest().body(new MessagesResponse(messages));
-        }
-        messages.add("Password changed with success.");
-        messages.add(String.format("%d", passwordStrength));
-        return ResponseEntity.ok().body(new MessagesResponse(messages));
+        var newPass = repoPass.applyCryptography(password.password());
+        Optional<UserModel> optional = repoUser.findById((long)payload.id());
+
+        var user = optional.get();
+        user.setPassword(newPass);
+
+        repoUser.save(user);
+        
+        return new PasswordResponse("Success! Updated user", listPass);
     }
 }

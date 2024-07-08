@@ -1,16 +1,16 @@
 package com.trevis.startup.example.services;
 
-import com.trevis.startup.example.dto.response.DataResponse;
-import com.trevis.startup.example.dto.response.DataService;
-import com.trevis.startup.example.exceptions.NoSuchEntityException;
-import com.trevis.startup.example.exceptions.NoSuchServiceException;
-import com.trevis.startup.example.model.Service;
-import com.trevis.startup.example.model.User;
+import java.util.List;
+
+import com.trevis.startup.example.dto.Service;
+import com.trevis.startup.example.model.DepartmentModel;
+import com.trevis.startup.example.model.ServiceModel;
 
 public interface ServiceService {
-    DataResponse<DataService> get(String query, Integer pageIndex, Integer pageSize) throws NoSuchServiceException;
-    Service create(String name, String description, Boolean internal, User menager);
-    Service findById(Long id) throws NoSuchEntityException;
-    void deleteById(Long id);
-    void save(Service service);
-}
+    public List<ServiceModel> Get(String query, Integer pageIndex, Integer pageSize, DepartmentModel departUser);  
+    public ServiceModel Create(Service service, Long id);
+    public Boolean Delete(Long id, Long idAuth);
+    public Boolean Update(Long idService, Long Auth, Service service);
+    public List<ServiceModel> Get(String query, int pageIndex, int pageSize, Object departUser);
+    public List<ServiceModel> Get(String query, int pageIndex, int pageSize, Object departUser);
+} 

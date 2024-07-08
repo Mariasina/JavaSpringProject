@@ -1,24 +1,10 @@
 package com.trevis.startup.example.services;
 
-import java.security.NoSuchAlgorithmException;
+import org.springframework.http.ResponseEntity;
 
-import com.auth0.jwt.interfaces.DecodedJWT;
 import com.trevis.startup.example.dto.AuthToken;
-import com.trevis.startup.example.exceptions.BadHashConfigurationException;
-import com.trevis.startup.example.exceptions.ClaimsConversionException;
-import com.trevis.startup.example.exceptions.InvalidAuthAttempt;
-import com.trevis.startup.example.exceptions.NoSuchEntityException;
+import com.trevis.startup.example.dto.Login;
 
 public interface AuthService {
-    public AuthToken login(String username, String password)
-        throws
-            NoSuchAlgorithmException,
-            ClaimsConversionException,
-            NoSuchEntityException,
-            BadHashConfigurationException;
-    
-    public DecodedJWT decode(String token)
-        throws
-            NoSuchAlgorithmException,
-            InvalidAuthAttempt;
-}
+    public ResponseEntity<AuthToken> login(Login login);
+} 

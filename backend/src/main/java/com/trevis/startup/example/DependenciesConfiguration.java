@@ -1,78 +1,72 @@
 package com.trevis.startup.example;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.trevis.startup.example.filters.AuthFilter;
-import com.trevis.startup.example.impl.database.DefaultDepartmentService;
-import com.trevis.startup.example.impl.database.DefaultServiceService;
-import com.trevis.startup.example.impl.database.DefaultTypeService;
-import com.trevis.startup.example.impl.database.DefaultUserService;
-// import com.trevis.startup.example.impl.mock.MockDepartmentService;
-// import com.trevis.startup.example.impl.mock.MockServiceService;
-// import com.trevis.startup.example.impl.mock.MockUserService;
-import com.trevis.startup.example.impl.security.JwtAuthService;
-import com.trevis.startup.example.impl.security.PBKDF2PasswordService;
+import com.trevis.startup.example.impl.IMPLAuth;
+import com.trevis.startup.example.impl.IMPLDepartment;
+import com.trevis.startup.example.impl.IMPLKeyPairManagement;
+import com.trevis.startup.example.impl.IMPLPassword;
+import com.trevis.startup.example.impl.IMPLService;
+import com.trevis.startup.example.impl.IMPLUser;
+import com.trevis.startup.example.impl.JWTGenerator;
 import com.trevis.startup.example.services.AuthService;
 import com.trevis.startup.example.services.DepartmentService;
 import com.trevis.startup.example.services.PasswordService;
 import com.trevis.startup.example.services.ServiceService;
 import com.trevis.startup.example.services.UserService;
-import com.trevis.startup.example.services.UserTypeService;
-import com.trevis.startup.example.sessions.UserSession;
 
 @Configuration
 public class DependenciesConfiguration {
+    // @Bean
+    // @Scope("singleton")
+    // public AuthService authService() {
+    //     return null; 
+    //    // Estamos retornando um valor nulo porque authService não possui um Mock. Você precisa implementar isso mais tarde =)
+    // }
 
     @Bean
     @Scope("singleton")
-    protected DepartmentService departmentService() {
-        return new DefaultDepartmentService();
+    public PasswordService passwordService() {
+        return new IMPLPassword();
+        // Estamos retornando um valor nulo porque passwordService não possui um Mock. Você precisa implementar isso mais tarde =)
     }
-
+    
     @Bean
     @Scope("singleton")
-    protected UserTypeService userTypeService() {
-        return new DefaultTypeService();
-    }
-
-    @Bean
-    @Scope("singleton")
-    protected UserService userService() {
-        return new DefaultUserService();
-    }
-
-    @Bean
-    @Scope("singleton")
-    protected ServiceService serviceService() {
-        return new DefaultServiceService();
+    public ServiceService serviceService() {
+        return new IMPLService();
     }
 
     @Bean
     @Scope("singleton")
-    protected AuthService authService() {
-        return new JwtAuthService();
+    public UserService userService() {
+        return new IMPLUser();
     }
 
     @Bean
     @Scope("singleton")
-    protected PasswordService passwordService() {
-        return new PBKDF2PasswordService();
-    }
-
-    @Bean
-    @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
-    protected UserSession userSession() {
-        return new UserSession();
+    public DepartmentService departService() {
+        return new IMPLDepartment();
     }
 
     @Bean
     @Scope("singleton")
-    protected AuthFilter authFilter() {
-        return new AuthFilter();
+    public IMPLKeyPairManagement KeyPairManagement () {
+        return new IMPLKeyPairManagement();
     }
+
+    @Bean
+    @Scope("singleton")
+    public JWTGenerator JWTGenerator () {
+        return new JWTGenerator();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public AuthService authService() {
+        return new IMPLAuth();
+    }
+    
 }

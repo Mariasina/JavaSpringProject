@@ -1,0 +1,81 @@
+header {
+    color: var(--grey-9);
+    padding: 20px;
+    background-image: url('back.jfif');
+    background-size: cover;
+    font-weight: bold;
+
+    width: 100vw;
+    height: 60px;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+
+    z-index: 3;
+}
+
+.img-header{
+    width: 50px;
+    margin-right: 1500px;
+}
+
+
+p{
+    color: #fff;
+    font-size: 1.5rem;
+    
+}
+
+
+.img-icons{
+    width: 200px;
+}
+
+.headerClass {
+    width: 100%;
+    max-width: 95%;
+    
+    padding: 8px;
+    
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.header-link{
+    display: flex;
+    gap: 50px;
+    margin: 20px;
+}
+
+.CardsClass{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    gap: 10px;
+    background-color: var(--grey-2);
+}
+
+.MyCard{
+    border: 3px solid #65afb2 ;
+    border-radius: 40px;
+
+}
+
+.card-body{
+    display: flex;
+    flex-direction: column;
+}
+
+.headerClass a {
+    color: white; 
+    text-decoration: none; 
+}
+
+.headerClass a:hover {
+    text-decoration: underline; 
+    color: #fff; 
+}
