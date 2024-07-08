@@ -18,6 +18,7 @@ import com.trevis.startup.example.services.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 
 @RestController
@@ -35,36 +36,38 @@ public class UserController {
     @Autowired
     UserJPARepository repoUser;
     
+    @CrossOrigin(origins = "http://127.0.0.1:5500")
+
     @PostMapping("user")
     public String createUser(@RequestHeader("token") String token, @RequestBody UserCreate user) {
     
-        var payload = jwt.verificate(token);
-        if (payload == null) {
-            throw new ResponseStatusException(
-                HttpStatus.UNAUTHORIZED,
-                "invalid token"
-                );
-        }
+        // var payload = jwt.verificate(token);
+        // if (payload == null) {
+        //     throw new ResponseStatusException(
+        //         HttpStatus.UNAUTHORIZED,
+        //         "invalid token"
+        //         );
+        // }
         
-        if (payload.role() != 0) {
-            throw new ResponseStatusException(
-                HttpStatus.FORBIDDEN,
-                "You don't have permission to create a new user"
-            );
-        }
+        // if (payload.role() != 0) {
+        //     throw new ResponseStatusException(
+        //         HttpStatus.FORBIDDEN,
+        //         "You don't have permission to create a new user"
+        //     );
+        // }
 
             
-        if (!UserRepo.verifyUserAccount(user)) {
-            return "The user already exists!";
-        }
+        // if (!UserRepo.verifyUserAccount(user)) {
+        //     return "The user already exists!";
+        // }
         
-        if (!UserRepo.verifyDepartment(user.department())) {
-            return "Department not found!";
-        }
+        // if (!UserRepo.verifyDepartment(user.department())) {
+        //     return "Department not found!";
+        // }
         
-        if (!UserRepo.verifyRole(user.role())) {
-            return "Invalid role!";
-        }
+        // if (!UserRepo.verifyRole(user.role())) {
+        //     return "Invalid role!";
+        // }
 
         if(UserRepo.Create(user) == null){
             return "Error: account could not be created!";
