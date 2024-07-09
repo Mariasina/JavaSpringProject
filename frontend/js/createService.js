@@ -10,29 +10,27 @@ form.addEventListener('submit', async event => {
     const description_data = document.getElementById('description').value;
     const intern_data = document.getElementById('internal').checked;
 
-    registerUser({
+    createService({
         name: name_data,
         description: description_data,
         intern: intern_data
     });
 });
 
-function registerUser(body) {
+async function createService(body) {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append("token", token)
+
     const options = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(body), // Converte o objeto JavaScript para JSON
+        headers: myHeaders,
+        mode: 'cors',
+        body: JSON.stringify(body)
     };
 
-    fetch(URL + "/service", options)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Cadastrado:', data);
-            // Aqui você pode lidar com a resposta do servidor, se necessário
-        })
-        .catch(error => console.error('Erro ao cadastrar:', error));
+    let response = await fetch(URL + "/service", options)
+    let json = await response.json()
+    console.log(json)
 }
 
