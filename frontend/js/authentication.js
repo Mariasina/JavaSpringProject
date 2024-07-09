@@ -4,17 +4,17 @@ const URL = "http://localhost:8080";
 form.addEventListener('submit', async event => {
     event.preventDefault(); // Evita o comportamento padrão de submissão do formulário
 
-    const login_data = document.getElementById('login').value;
-    const department_data = document.getElementById('department').value;
-    const role_data = document.getElementById('role').value;
+    const login_data = document.getElementById('username').value;
+    const password_data = document.getElementById('password').value;
 
     
 
     authenticate({
         login: login_data,
-        department: "1",
-        role: "1"
+        password: password_data
     });
+
+    window.location.href = 'index.html'
 });
 
 function authenticate(body) {
@@ -29,8 +29,9 @@ function authenticate(body) {
     fetch(URL + "/auth", options)
         .then(response => response.json())
         .then(data => {
-            console.log('Logado:', data);
+            console.log('Logged in:', data);
+            localStorage.setItem("token", data);
             // Aqui você pode lidar com a resposta do servidor, se necessário
         })
-        .catch(error => console.error('Erro ao cadastrar:', error));
+        .catch(error => console.error('Error in logging in:', error));
 }
