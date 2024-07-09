@@ -39,6 +39,6 @@ function checkPasswordValidity(event) {
     }
 
     if(doesRequire & doesMatch){
-        window.location.href = 'index.html';
+        // window.location.href = 'index.html';
     }
 }
