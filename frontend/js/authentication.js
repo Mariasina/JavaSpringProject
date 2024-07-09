@@ -8,14 +8,16 @@ form.addEventListener('submit', async event => {
     const department_data = document.getElementById('department').value;
     const role_data = document.getElementById('role').value;
 
-    autheticate({
+    
+
+    authenticate({
         login: login_data,
         department: "1",
         role: "1"
     });
 });
 
-function autheticate(body) {
+function authenticate(body) {
     const options = {
         method: 'POST',
         headers: {
