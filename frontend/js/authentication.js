@@ -12,7 +12,7 @@ form.addEventListener('submit', async event => {
         password: password_data
     });
 
-    window.location.href = 'index.html'
+    
 });
 
 function autheticate(body) {
@@ -28,8 +28,17 @@ function autheticate(body) {
         .then(response => response.json())
         .then(data => {
             console.log('Logged in:', data);
-            localStorage.setItem("token", data);
+            let token = data.token;
+            console.log(token);
+            if(token == null){
+                alert(data.message);
+            }else{
+                localStorage.setItem("token", token);
+                window.location.href = 'index.html';
+            }
             // Aqui você pode lidar com a resposta do servidor, se necessário
         })
         .catch(error => console.error('Error in logging in:', error));
+        
+
 }
