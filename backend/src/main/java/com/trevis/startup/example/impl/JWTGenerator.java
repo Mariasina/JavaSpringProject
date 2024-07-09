@@ -50,7 +50,7 @@ public class JWTGenerator {
             return new Payload(id, role);
 
         } catch (Exception exception) {
-            // exception.printStackTrace();
+            exception.printStackTrace();
             return null;
         }
     }
