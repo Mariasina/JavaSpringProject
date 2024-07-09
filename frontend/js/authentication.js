@@ -7,8 +7,6 @@ form.addEventListener('submit', async event => {
     const login_data = document.getElementById('username').value;
     const password_data = document.getElementById('password').value;
 
-    
-
     authenticate({
         login: login_data,
         password: password_data
