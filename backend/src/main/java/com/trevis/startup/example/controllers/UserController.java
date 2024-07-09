@@ -36,11 +36,9 @@ public class UserController {
     @Autowired
     UserJPARepository repoUser;
     
-    @CrossOrigin(origins = "http://127.0.0.1:5500")
-
     @PostMapping("user")
     public String createUser(@RequestHeader("token") String token, @RequestBody UserCreate user) {
-    
+        System.out.println(token);
         var payload = jwt.verificate(token);
         if (payload == null) {
             throw new ResponseStatusException(

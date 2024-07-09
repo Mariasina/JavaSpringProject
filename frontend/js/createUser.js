@@ -1,14 +1,15 @@
 const form = document.querySelector('form');
-const URL = "http://localhost:8080"; // Verifique se está correto para o seu ambiente
+const URL = "http://localhost:8080"; 
 
 const token = localStorage.getItem('token');
+console.log(token)
 
 form.addEventListener('submit', async event => {
-    event.preventDefault(); // Evita o comportamento padrão de submissão do formulário
+    event.preventDefault(); 
 
     const login_data = document.getElementById('login').value;
-    const department_data = document.getElementById('department').value;
-    const role_data = document.getElementById('role').value;
+    let department_data = document.getElementById('department').value;
+    let role_data = document.getElementById('role').value;  
 
     if (department_data == 'RH') {
         department_data = '0';
@@ -33,22 +34,19 @@ form.addEventListener('submit', async event => {
     });
 });
 
-function registerUser(body) {
+async function registerUser(body) {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json')
+    myHeaders.append("token", token)
+
     const options = {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(body), // Converte o objeto JavaScript para JSON
+        headers: myHeaders,
+        mode: 'cors',
+        body: JSON.stringify(body)
     };
 
-    fetch(URL + "/user", options)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Cadastrado:', data);
-            // Aqui você pode lidar com a resposta do servidor, se necessário
-        })
-        .catch(error => console.error('Erro ao cadastrar:', error));
+    let response = await fetch(URL + "/user", options)
+    let json = await response.json()
+    console.log(json)
 }
-

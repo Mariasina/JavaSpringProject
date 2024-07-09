@@ -19,7 +19,6 @@ public class UserLoginController {
     AuthService auth;
 
     @CrossOrigin(origins = "http://127.0.0.1:5500")
-
     @PostMapping("/auth")
     public ResponseEntity<AuthToken> postMethodName(@RequestBody Login login) {
         return auth.login(login);

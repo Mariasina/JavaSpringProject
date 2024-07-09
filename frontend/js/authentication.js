@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const URL = "http://localhost:8080";
 
 form.addEventListener('submit', async event => {
-    event.preventDefault(); // Evita o comportamento padrão de submissão do formulário
+    event.preventDefault(); 
 
     const login_data = document.getElementById('username').value;
     const password_data = document.getElementById('password').value;
@@ -27,7 +27,7 @@ function authenticate(body) {
     fetch(URL + "/auth", options)
         .then(response => response.json())
         .then(data => {
-            console.log('Logged in:', data);
+            console.log('Response:', data);
             let token = data.token;
             console.log(token);
             if(token == null){
