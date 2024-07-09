@@ -1,6 +1,8 @@
 const form = document.querySelector('form');
 const URL = "http://localhost:8080"; // Verifique se está correto para o seu ambiente
 
+const token = localStorage.getItem('token');
+
 form.addEventListener('submit', async event => {
     event.preventDefault(); // Evita o comportamento padrão de submissão do formulário
 
@@ -35,7 +37,8 @@ function registerUser(body) {
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json', // Indica que o corpo da requisição é JSON
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(body), // Converte o objeto JavaScript para JSON
     };
