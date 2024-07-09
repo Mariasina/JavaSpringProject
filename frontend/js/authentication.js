@@ -11,6 +11,8 @@ form.addEventListener('submit', async event => {
         login: login_data,
         password: password_data
     });
+
+    window.location.href = 'index.html'
 });
 
 function autheticate(body) {

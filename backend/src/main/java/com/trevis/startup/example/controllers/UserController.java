@@ -41,33 +41,33 @@ public class UserController {
     @PostMapping("user")
     public String createUser(@RequestHeader("token") String token, @RequestBody UserCreate user) {
     
-        // var payload = jwt.verificate(token);
-        // if (payload == null) {
-        //     throw new ResponseStatusException(
-        //         HttpStatus.UNAUTHORIZED,
-        //         "invalid token"
-        //         );
-        // }
+        var payload = jwt.verificate(token);
+        if (payload == null) {
+            throw new ResponseStatusException(
+                HttpStatus.UNAUTHORIZED,
+                "invalid token"
+                );
+        }
         
-        // if (payload.role() != 0) {
-        //     throw new ResponseStatusException(
-        //         HttpStatus.FORBIDDEN,
-        //         "You don't have permission to create a new user"
-        //     );
-        // }
+        if (payload.role() != 0) {
+            throw new ResponseStatusException(
+                HttpStatus.FORBIDDEN,
+                "You don't have permission to create a new user"
+            );
+        }
 
             
-        // if (!UserRepo.verifyUserAccount(user)) {
-        //     return "The user already exists!";
-        // }
+        if (!UserRepo.verifyUserAccount(user)) {
+            return "The user already exists!";
+        }
         
-        // if (!UserRepo.verifyDepartment(user.department())) {
-        //     return "Department not found!";
-        // }
+        if (!UserRepo.verifyDepartment(user.department())) {
+            return "Department not found!";
+        }
         
-        // if (!UserRepo.verifyRole(user.role())) {
-        //     return "Invalid role!";
-        // }
+        if (!UserRepo.verifyRole(user.role())) {
+            return "Invalid role!";
+        }
 
         if(UserRepo.Create(user) == null){
             return "Error: account could not be created!";
