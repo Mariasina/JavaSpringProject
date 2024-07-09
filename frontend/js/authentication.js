@@ -7,7 +7,7 @@ form.addEventListener('submit', async event => {
     const login_data = document.getElementById('username').value;
     const password_data = document.getElementById('password').value;
 
-    autheticate({
+    authenticate({
         login: login_data,
         password: password_data
     });
@@ -15,7 +15,7 @@ form.addEventListener('submit', async event => {
     
 });
 
-function autheticate(body) {
+function authenticate(body) {
     const options = {
         method: 'POST',
         headers: {
